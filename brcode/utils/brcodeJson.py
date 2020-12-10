@@ -42,13 +42,13 @@ def staticJsonToBrcodeJson(brcode):
             BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix",
             BrcodeJsonSubKey.merchantAccountDictKey: brcode["key"],
         },
-        BrcodeJsonKey.merchantCategoryCode: brcode.get("mcc") or "0000",
+        BrcodeJsonKey.merchantCategoryCode: brcode.get("mcc", "")[:4] or "0000",
         BrcodeJsonKey.transactionCurrency: "986",
         BrcodeJsonKey.countryCode: "BR",
-        BrcodeJsonKey.merchantName: brcode["name"],
-        BrcodeJsonKey.merchantCity: brcode["city"],
+        BrcodeJsonKey.merchantName: brcode["name"][:25],
+        BrcodeJsonKey.merchantCity: brcode["city"][:15],
         BrcodeJsonKey.additionalData: {
-            BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"] or "***",
+            BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"][:25] or "***",
         },
     }
     if brcode.get("amount") is not None:
@@ -64,13 +64,13 @@ def dynamicJsonToBrcodeJson(brcode):
             BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix",
             BrcodeJsonSubKey.merchantAccountUrl: brcode["url"],
         },
-        BrcodeJsonKey.merchantCategoryCode: brcode.get("mcc") or "0000",
+        BrcodeJsonKey.merchantCategoryCode: brcode.get("mcc", "")[:4] or "0000",
         BrcodeJsonKey.transactionCurrency: "986",
         BrcodeJsonKey.countryCode: "BR",
-        BrcodeJsonKey.merchantName: brcode["name"],
-        BrcodeJsonKey.merchantCity: brcode["city"],
+        BrcodeJsonKey.merchantName: brcode["name"][:25],
+        BrcodeJsonKey.merchantCity: brcode["city"][:15],
         BrcodeJsonKey.additionalData: {
-            BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"] or "***",
+            BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"][:25] or "***",
         }
     }
     if brcode.get("amount") is not None:
