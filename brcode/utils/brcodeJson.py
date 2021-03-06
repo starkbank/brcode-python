@@ -5,6 +5,7 @@ class BrcodeJsonKey(Enum):
 
     payloadFormatIndicator = "00"
     pointOfInitiationMethod = "01"
+    merchantAccountInformationCards = "04"
     merchantAccountInformationPix = "26"
     merchantCategoryCode = "52"
     transactionCurrency = "53"
@@ -18,7 +19,7 @@ class BrcodeJsonKey(Enum):
 
     @classmethod
     def merchantAccountInformations(cls):
-        return [str(i).zfill(2) for i in range(2, 52)]
+        return [str(i).zfill(2) for i in range(26, 52)]
 
     @classmethod
     def unreservedTemplates(cls):
