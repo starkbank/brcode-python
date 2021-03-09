@@ -1,4 +1,3 @@
-from binascii import hexlify
 from brcode.utils.accents import Accents
 from brcode.utils.brcodeJson import BrcodeJsonKey
 
@@ -8,7 +7,7 @@ _maxCharacters = 512
 
 def jsonFromBrcode(brcode, _level=1):
     json = {}
-    if len(hexlify(brcode)) // 2 > _maxCharacters:
+    if len(brcode.encode("utf8")) > _maxCharacters:
         raise ValueError("more than {max} bytes".format(max=_maxCharacters))
     if _level == 1 and _calculateCrc16(brcode[:-4]) != brcode[-4:]:
         raise ValueError(
