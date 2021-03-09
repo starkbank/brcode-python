@@ -1,14 +1,15 @@
+from binascii import hexlify
 from brcode.utils.accents import Accents
-from brcode.utils.brcodeJson import BrcodeJsonKey, BrcodeJsonSubKey
+from brcode.utils.brcodeJson import BrcodeJsonKey
 
 _recursiveRange = [BrcodeJsonKey.additionalData] + BrcodeJsonKey.merchantAccountInformations() + BrcodeJsonKey.unreservedTemplates()
-_maxCharacters = (2 + 2 + 99) * 100
+_maxCharacters = 512
 
 
 def jsonFromBrcode(brcode, _level=1):
     json = {}
-    if len(brcode) > _maxCharacters:
-        raise ValueError("more than {max} characters".format(max=_maxCharacters))
+    if len(hexlify(brcode)) // 2 > _maxCharacters:
+        raise ValueError("more than {max} bytes".format(max=_maxCharacters))
     if _level == 1 and _calculateCrc16(brcode[:-4]) != brcode[-4:]:
         raise ValueError(
             "CRC16 mismatch: expected {expected}, got {actual}".format(
