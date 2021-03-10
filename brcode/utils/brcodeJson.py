@@ -52,7 +52,7 @@ def staticJsonToBrcodeJson(brcode):
             BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"][:25] or "***",
         },
     }
-    if brcode.get("amount") is not None:
+    if brcode.get("amount"):
         json[BrcodeJsonKey.transactionAmount] = "{:.2f}".format(brcode["amount"] / 100.0)
     return json
 
@@ -74,6 +74,6 @@ def dynamicJsonToBrcodeJson(brcode):
             BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"][:25] or "***",
         }
     }
-    if brcode.get("amount") is not None:
+    if brcode.get("amount"):
         json[BrcodeJsonKey.transactionAmount] = "{:.2f}".format(brcode["amount"] / 100.0)
     return json
