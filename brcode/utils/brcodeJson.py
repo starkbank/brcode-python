@@ -31,6 +31,7 @@ class BrcodeJsonSubKey(Enum):
     merchantAccountGui = "00"
     merchantAccountDictKey = "01"
     merchantAccountInfo = "02"
+    cashierBankCode = "03"
     unreservedTemplateGUI = "00"
     additionalDataReferenceLabel = "05"
     merchantAccountUrl = "25"
@@ -54,6 +55,14 @@ def staticJsonToBrcodeJson(brcode):
     }
     if brcode.get("amount"):
         json[BrcodeJsonKey.transactionAmount] = "{:.2f}".format(brcode["amount"] / 100.0)
+    if brcode.get("cashierBankCode"):
+        json[BrcodeJsonKey.merchantAccountInformationPix].update({
+            BrcodeJsonSubKey.cashierBankCode: brcode.get("cashierBankCode")
+        })
+    if brcode.get("description"):
+        json[BrcodeJsonKey.merchantAccountInformationPix].update({
+            BrcodeJsonSubKey.merchantAccountInfo: brcode.get("description")
+        })
     return json
 
 
