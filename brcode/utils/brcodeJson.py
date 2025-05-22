@@ -63,6 +63,12 @@ def staticJsonToBrcodeJson(brcode):
         json[BrcodeJsonKey.merchantAccountInformationPix].update({
             BrcodeJsonSubKey.merchantAccountInfo: brcode.get("description")
         })
+    if brcode.get("subscriptionUrl"):
+        json[BrcodeJsonKey.unreservedTemplates()[0]] = {
+            BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix",
+            BrcodeJsonSubKey.merchantAccountUrl: brcode["subscriptionUrl"],
+        }
+
     return json
 
 
@@ -83,6 +89,14 @@ def dynamicJsonToBrcodeJson(brcode):
             BrcodeJsonSubKey.additionalDataReferenceLabel: brcode["txid"][:25] or "***",
         }
     }
+    if brcode.get("url"):
+        json[BrcodeJsonKey.merchantAccountInformationPix][BrcodeJsonSubKey.merchantAccountUrl] = brcode["url"]
     if brcode.get("amount"):
         json[BrcodeJsonKey.transactionAmount] = "{:.2f}".format(brcode["amount"] / 100.0)
+    if brcode.get("subscriptionUrl"):
+        json[BrcodeJsonKey.unreservedTemplates()[0]] = {
+            BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix",
+            BrcodeJsonSubKey.merchantAccountUrl: brcode["subscriptionUrl"],
+        }
+
     return json
