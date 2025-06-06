@@ -77,8 +77,7 @@ def dynamicJsonToBrcodeJson(brcode):
         BrcodeJsonKey.payloadFormatIndicator: "01",
         BrcodeJsonKey.pointOfInitiationMethod: "12",
         BrcodeJsonKey.merchantAccountInformationPix: {
-            BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix",
-            BrcodeJsonSubKey.merchantAccountUrl: brcode["url"],
+            BrcodeJsonSubKey.merchantAccountGui: "br.gov.bcb.pix"
         },
         BrcodeJsonKey.merchantCategoryCode: brcode.get("mcc", "")[:4] or "0000",
         BrcodeJsonKey.transactionCurrency: "986",

@@ -17,7 +17,6 @@ class TestDynamicfromJson(TestCase):
         self.assertEqual(actualBrcode, expectedBrcode)
 
 
-
     def test_success_with_subscription_url(self):
         json = {
             "name": "Arya Stark with a very long name",
@@ -28,4 +27,15 @@ class TestDynamicfromJson(TestCase):
         }
         actualBrcode = fromJson(json)
         expectedBrcode = "00020101021226800014br.gov.bcb.pix2558invoice.starkbank.com/f5333103-3279-4db2-8389-5efe335ba93d5204000053039865802BR5925Arya Stark with a very lo6015Pindamonhangaba62200516565656565656565680850014br.gov.bcb.pix2563invoice.starkbank.com/subs/f5333103-3279-4db2-8389-5efe335ba93d6304C5CB"
+        self.assertEqual(actualBrcode, expectedBrcode)
+
+    def test_success_with_only_subscription_url(self):
+        json = {
+            "name": "Arya Stark with a very long name",
+            "city": "Pindamonhangaba do Norte do Sul de Winterfell",
+            "txid": "5656565656565656",
+            "subscriptionUrl": "invoice.starkbank.com/subs/f5333103-3279-4db2-8389-5efe335ba93d"
+        }
+        actualBrcode = fromJson(json)
+        expectedBrcode = "00020101021226180014br.gov.bcb.pix5204000053039865802BR5925Arya Stark with a very lo6015Pindamonhangaba62200516565656565656565680850014br.gov.bcb.pix2563invoice.starkbank.com/subs/f5333103-3279-4db2-8389-5efe335ba93d63042EC1"
         self.assertEqual(actualBrcode, expectedBrcode)
